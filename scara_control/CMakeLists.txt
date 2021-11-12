@@ -8,9 +8,10 @@ project(scara_control)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  controller_manager
-  joint_state_controller
-  robot_state_publisher
+  geometry_msgs
+  roscpp
+  rospy
+  std_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -70,7 +71,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
 #   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
+#   geometry_msgs#   std_msgs
 # )
 
 ################################################
@@ -105,7 +106,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES scara_control
-#  CATKIN_DEPENDS controller_manager joint_state_controller robot_state_publisher
+#  CATKIN_DEPENDS geometry_msgs roscpp rospy std_msgs
 #  DEPENDS system_lib
 )
 
