@@ -1,0 +1,436 @@
+<?xml version="1.0"?>
+<robot name="scara_model">
+
+
+ <!-- Controller Stuff -->
+  <gazebo>
+      <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
+        <robotNamespace>/scara</robotNamespace>
+        <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      </plugin>
+  </gazebo>
+
+
+
+<!-- rigidly fixing the model to the world -->
+    <link name = "world"/>
+
+    <joint name = "fixed" type = "fixed">
+        <parent link="world"/>
+        <child link="link_1"/>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    </joint>
+
+
+<!--First link-->
+
+ <link name="link_1">
+    <collision>
+      <origin xyz="0 0 0.2" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.15" length="0.4"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0.2" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.15" length="0.4"/>
+      </geometry>
+      <material name="orange">
+                <color rgba="1 0.64 0 1"/>
+            </material>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0.2" rpy="0 0 0"/>
+      <mass value="1"/>
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0"/>
+    </inertial>
+  </link>
+
+<!-- Revolute joint -->
+
+  <joint name="revolute_joint_1" type="revolute">
+        <parent link="link_1"/>
+        <child link="link_2"/>
+        <origin xyz="0.0 0.0 0.4" rpy="0.0 0.0 1.57"/>  
+        <axis xyz="0.0 0.0 1"/> 
+        <limit lower="-3.14" upper="3.14" effort="100.0" velocity="1"/>  
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface> 
+  </joint>
+
+<!-- link 2 -->
+
+
+ <link name="link_2">
+    <collision>
+      <origin xyz="0 0 1" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.075" length="2"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 1" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.075" length="2"/>
+      </geometry>
+       <material name="white">
+                <color rgba="1 1 1 1"/>
+            </material>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 1" rpy="0 0 0"/>
+      <mass value="1"/>
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0"/>
+    </inertial>
+  </link>
+
+
+<!-- Fixed joint -->
+
+  <joint name = "fixed_joint_1" type= "fixed" >
+        <parent link="link_2"/>
+        <child link="link_3"/>
+        <origin xyz="0.0 0.0 2" rpy="0.0 0.0 -1.57"/>  
+  </joint>
+  
+<!-- link 3 -->
+
+ <link name="link_3">
+    <collision>
+      <origin xyz="0 0.925 0" rpy="1.57 0 0"/>
+      <geometry>
+        <cylinder radius="0.075" length="2"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0.925 0" rpy="1.57 0 0"/>
+      <geometry>
+        <cylinder radius="0.075" length="2"/>
+      </geometry>
+       <material name="white">
+                <color rgba="1 1 1 1"/>
+            </material>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0.925 0" rpy="1.57 0 0"/>
+      <mass value="1"/>
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0"/>
+    </inertial>
+  </link>
+
+<!-- fixed joint -->
+
+
+  <joint name = "fixed_joint_2" type= "fixed" >
+        <parent link="link_3"/>
+        <child link="link_4"/>
+        <origin xyz="0 1.925 0" rpy="0.0 0.0 0.0"/>  
+  </joint>
+
+<!-- link 4 -->
+
+ <link name="link_4">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.15" length="0.4"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.15" length="0.4"/>
+      </geometry>
+       <material name="orange">
+                <color rgba="1 0.64 0 1"/>
+            </material>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1"/>
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0"/>
+    </inertial>
+  </link>
+  
+
+<!-- revolute joint - 2 -->
+
+  <joint name="revolute_joint_2" type="revolute">
+        <parent link="link_4"/>
+        <child link="link_5"/>
+        <origin xyz="0.0 0 0" rpy="0.0 0.0 1.57"/>  
+        <axis xyz="0.0 0.0 1"/> 
+        <limit lower="-3" upper="3" effort="100.0" velocity="1"/> 
+        <hardwareInterface>EffortJointInterface</hardwareInterface>  
+  </joint>
+
+  <!-- link 5 -->
+
+ <link name="link_5">
+    <collision>
+      <origin xyz="0 0 0.3" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.075" length="0.2"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0.3" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.075" length="0.2"/>
+      </geometry>
+       <material name="white">
+                <color rgba="1 1 1 1"/>
+            </material>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0.3" rpy="0 0 0"/>
+      <mass value="1"/>
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0"/>
+    </inertial>
+  </link>
+
+<!-- fixed joint 3 -->
+
+  <joint name = "fixed_joint_3" type= "fixed" >
+        <parent link="link_5"/>
+        <child link="link_6"/>
+        <origin xyz="0 0 0.4" rpy="0.0 0.0 -1.57"/>  
+  </joint>
+
+<!-- link 6 -->
+
+ <link name="link_6">
+    <collision>
+      <origin xyz="0 0.925 0" rpy="1.57 0 0"/>
+      <geometry>
+        <cylinder radius="0.075" length="2"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0.925 0" rpy="1.57 0 0"/>
+      <geometry>
+        <cylinder radius="0.075" length="2"/>
+      </geometry>
+      <material name="white">
+                <color rgba="1 1 1 1"/>
+            </material>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0.925 0" rpy="1.57 0 0"/>
+      <mass value="1"/>
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0"/>
+    </inertial>
+  </link>
+
+<!-- fixed joint 4 -->
+
+  <joint name = "fixed_joint_4" type= "fixed" >
+        <parent link="link_6"/>
+        <child link="link_7"/>
+        <origin xyz="0 2 0" rpy="0.0 0.0 0.0"/>  
+  </joint>
+
+<!-- link 7 -->
+
+ <link name="link_7">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.25 0.25 0.25"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.25 0.25 0.25"/>
+      </geometry>
+      <material name="orange">
+                <color rgba="1 0.64 0 1"/>
+            </material>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1"/>
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0"/>
+    </inertial>
+  </link>
+
+<!-- prismatic joint -->
+
+   <joint name="prismatic_joint_1" type="prismatic">
+        <parent link="link_7"/>
+        <child link="link_8"/>
+        <origin xyz = " 0 0 0.095" rpy = "0 0 1.57" />
+        <axis xyz = " 0 0 1" />
+        <limit lower="-1" upper = "1" effort = "100" velocity = "1"/>  
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+
+<!-- link 8 -->
+
+ <link name="link_8">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.075" length="2"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0." rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.075" length="2"/>
+      </geometry>
+       <material name="white">
+                <color rgba="1 1 1 1"/>
+            </material>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0." rpy="0 0 0"/>
+      <mass value="1"/>
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0"/>
+    </inertial>
+  </link>
+
+
+<!-- Adding the color plugins for gazebo -->
+
+
+    <gazebo reference="link_1"> <!-- reference to a existing "link" -->
+    <!-- NOTE: use Gazebo/DepthMap to take color from mesh (.dae only) -->
+    <material>Gazebo/Orange</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <selfCollide>True</selfCollide>
+    </gazebo>
+
+    <gazebo reference="link_4"> <!-- reference to a existing "link" -->
+    <!-- NOTE: use Gazebo/DepthMap to take color from mesh (.dae only) -->
+    <material>Gazebo/Orange</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <selfCollide>True</selfCollide>
+    </gazebo>
+
+    <gazebo reference="link_7"> <!-- reference to a existing "link" -->
+    <!-- NOTE: use Gazebo/DepthMap to take color from mesh (.dae only) -->
+    <material>Gazebo/Orange</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <selfCollide>True</selfCollide>
+    </gazebo>
+
+    <gazebo reference="link_2"> <!-- reference to a existing "link" -->
+    <!-- NOTE: use Gazebo/DepthMap to take color from mesh (.dae only) -->
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <selfCollide>True</selfCollide>
+    </gazebo>
+
+    <gazebo reference="link_3"> <!-- reference to a existing "link" -->
+    <!-- NOTE: use Gazebo/DepthMap to take color from mesh (.dae only) -->
+    
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <selfCollide>True</selfCollide>
+    </gazebo>
+
+    <gazebo reference="link_5"> <!-- reference to a existing "link" -->
+    <!-- NOTE: use Gazebo/DepthMap to take color from mesh (.dae only) -->
+   
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <selfCollide>True</selfCollide>
+    </gazebo>
+
+    <gazebo reference="link_6"> <!-- reference to a existing "link" -->
+    <!-- NOTE: use Gazebo/DepthMap to take color from mesh (.dae only) -->
+    
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <selfCollide>True</selfCollide>
+    </gazebo>
+
+    <gazebo reference="link_8"> <!-- reference to a existing "link" -->
+    <!-- NOTE: use Gazebo/DepthMap to take color from mesh (.dae only) -->
+   
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <selfCollide>True</selfCollide>
+    </gazebo>
+
+<!-- Defining the transmission -->
+
+<transmission name="tran_1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="revolute_joint_1">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor_1">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran_2">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="revolute_joint_2">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor_2">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran_3">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="prismatic_joint_1">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor_3">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+</robot>

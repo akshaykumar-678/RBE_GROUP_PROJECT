@@ -1,0 +1,29 @@
+<launch>
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="worlds/scara_world.world"/> 
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="recording" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+   <!-- Load the URDF into the ROS Parameter Server -->
+  <arg name = "model" default = "$(find scara_robot_description)/urdf/scara_description.urdf"/>
+
+  <param name="robot_description" command = "cat $(arg model)" />
+
+   <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+    args="-urdf -model scara -param robot_description"/>
+
+  <!-- Run joint_state_publisher -->
+   <node name= "joint_state_publisher" pkg = "joint_state_publisher" type = "joint_state_publisher"/>
+
+   <!-- Launch controller for robot joints -->
+  <include file="$(find scara_control)/launch/scara_control.launch">
+ </include>
+
+
+</launch>
