@@ -36,7 +36,7 @@ def forw_kine(position):
 
 def listener():
     rospy.init_node('FK', anonymous=True)
-    pub=rospy.Publisher("FK",Float64MultiArray,queue_size=10)
+    pub=rospy.Publisher("/scara/forward_kinematics",Float64MultiArray,queue_size=10)
     sub=rospy.Subscriber("/scara/joint_states", JointState, forw_kine)
 
     rate=rospy.Rate(10)
