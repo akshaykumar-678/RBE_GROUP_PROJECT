@@ -20,3 +20,19 @@ scara:
     type: effort_controllers/JointPositionController
     joint: prismatic_joint_1
     pid: {p: 100.0, i: 0.01, d: 80.0}
+
+  # velocity controllers
+  joint1_velocity_controller:
+    type: effort_controllers/JointVelocityController
+    joint: revolute_joint_1
+    pid: {p: 10.0, i: 0.01, d: 8.0}
+  
+  joint2_velocity_controller:
+    type: effort_controllers/JointVelocityController
+    joint: revolute_joint_1
+    pid: {p: 10.0, i: 0.01, d: 8.0}
+      
+  joint3_velocity_controller:
+    type: effort_controllers/JointVelocityController
+    joint: revolute_joint_1
+    pid: {p: 10.0, i: 0.01, d: 8.0}
