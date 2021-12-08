@@ -15,4 +15,5 @@ Akshay:
                 2. Updated the "YAML" file /scara_control/config/scara_control.yaml
                 3. Updated the "launch" file /scara/control/launch/scara_control.launch
 
+use the following comand to launch the vel_kin node: rosrun vel_kin vel_server.py
 
